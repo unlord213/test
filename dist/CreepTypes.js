@@ -7,6 +7,10 @@ let Harvester = require('Harvester');
  * @property {number} cost - energy cost to create
  */
 
+/**
+ * Map of role to creep information
+ */
+// TODO: turn array into map to remove creeps
 let creepTypes = new Map();
 creepTypes.set(Harvester.ROLE, {
   body: Harvester.BODY,
@@ -14,6 +18,5 @@ creepTypes.set(Harvester.ROLE, {
   cost: Harvester.COST,
   creeps: []
 });
-console.log('role:', Harvester.ROLE, 'types:', JSON.stringify(creepTypes))
 
 module.exports = creepTypes;

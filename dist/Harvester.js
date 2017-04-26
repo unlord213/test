@@ -4,15 +4,6 @@ let BaseCreep = require('BaseCreep');
  * Harvester creep
  */
 class Harvester extends BaseCreep {
-  // /**
-  //  * @param  {Array<String>} body Body parts
-  //  * @param  {String} role  Role
-  //  * @param  {number} cost  Energy cost
-  //  * @param {string} name Name
-  //  */
-  // constructor(name) {
-  //   super(Harvester.BODY, Harvester.ROLE, Harvester.COST, name);
-  // }
   /**
    * @param  {String} name creep name
    * @param  {Creep} creep creep
@@ -22,21 +13,9 @@ class Harvester extends BaseCreep {
     super(Harvester.BODY, Harvester.ROLE, Harvester.COST, name, creep);
   }
 
-  // /**
-  //  * @param {BaseSpawn} baseSpawn spawn used to create the creep
-  //  * @param {string} name creep name
-  //  * @return {Harvester|undefined}
-  //  */
-  // static create(baseSpawn, name) {
-  //   let newName = baseSpawn.createCreep(Harvester.BODY, Harvester.ROLE, Harvester.COST, name);
-  //   if (undefined !== newName) {
-  //     return new Harvester(newName);
-  //   }
-  // }
-
   run() {
     let creep = Game.creeps[this.name];
-    if (creep.spawning) {
+    if(!creep || creep.spawning) {
       return;
     }
 

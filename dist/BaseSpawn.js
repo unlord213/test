@@ -1,3 +1,5 @@
+let NameGenerator = require('NameGenerator');
+
 /**
  * Wrapper for a StructureSpawn
  */
@@ -11,18 +13,19 @@ class BaseSpawn {
 
   /**
    * Spawn a creep
+   *
    * @param  {Array<String>} body Body parts
    * @param  {String} role Role
    * @param  {number} cost Energy cost
-   * @param  {string} name name
    * @return {string|undefined}
    */
-  createCreep(body, role, cost, name) {
+  createCreep(body, role, cost) {
     if (this.structureSpawn.energy < cost) {
       return;
     }
 
-    var newName = this.structureSpawn.createCreep(body, name, {
+    let name = NameGenerator.generate(role);
+    let newName = this.structureSpawn.createCreep(body, name, {
       role: role
     });
 
