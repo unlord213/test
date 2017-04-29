@@ -1,4 +1,5 @@
 let NameGenerator = require('NameGenerator');
+let CreepManager = require('CreepManager');
 
 /**
  * Wrapper for a StructureSpawn
@@ -30,7 +31,7 @@ class BaseSpawn {
     });
 
     if (_.isString(newName)) {
-      console.log('Spawning new harvester: ' + newName);
+      console.log('Spawning: ' + newName);
       return newName;
     }
 
@@ -55,6 +56,11 @@ class BaseSpawn {
         break;
       default:
     }
+  }
+
+  buildRoad() {
+    let creepManager = new CreepManager();
+    creepManager.getRoadCreeps();
   }
 }
 

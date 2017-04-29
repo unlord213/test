@@ -1,12 +1,16 @@
+/**
+ * Class to generate a unique name
+ */
 class NameGenerator {
   /**
    * Generate a unique name for a creep based on role
    *
-   * @param  {String} role creep role
-   * @return {Generator<String>} unique name
+   * @param  {String} roleName Role name
+   *
+   * @return {String} Unique creep name
    */
-  static generate(role) {
-    return role + Game.time.toString();
+  static generate(roleName) {
+    return roleName + Game.time.toString();
   }
 }
 

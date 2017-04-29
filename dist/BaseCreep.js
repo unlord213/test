@@ -1,44 +1,87 @@
+const ErrorManager = require('ErrorManager');
 /**
- * Base creep class for others to extend
+ * Class to hold common creep functionality
  */
 class BaseCreep {
   /**
-   * @param  {Array<String>} body Body parts
-   * @param  {String} role Role
-   * @param  {number} cost Energy cost
-   * @param  {String} name Name
-   * @param  {Creep} creep
+   * @param  {Creep} gameCreep Game creep object
+   *
+   * @return {Harvester} Created creep
    */
-  constructor(body, role, cost, name, creep) {
+  constructor(gameCreep) {
     /**
-     * Parts of the creep
-     * @type {Array<String>}
-     */
-    this.body = body;
-    /**
-     * Creep role
+     * Game creep object
      * @type {String}
      */
-    this.role = role;
-    /**
-     * Energy cost to create
-     * @type {number}
-     */
-    this.cost = cost;
-    /**
-     * Creep Name
-     * @type {String}
-     */
-    this.name = name;
-    /**
-     * Creep
-      @type {Creep}
-     */
-    this.creep = creep;
+    this.gameCreep = gameCreep;
   }
 
-  run() {
-    console.log("ERROR: BaseCreep has no run");
+  harvest(target) {
+    const result = this.gameCreep.harvest(target);
+
+    if (result === ERR_NOT_IN_RANGE) {
+      this.move(target);
+    } else if (result !== OK) {
+      ErrorManager.logError("harvest", this.gameCreep.name, result);
+    }
+
+    return result;
+  }
+
+  transfer(target) {
+    const result = this.gameCreep.transfer(target, RESOURCE_ENERGY);
+    if (result === OK) {
+      return;
+    }
+
+    if (result === ERR_NOT_IN_RANGE) {
+      this.move(target);
+      return;
+    }
+
+    ErrorManager.logError("transfer", this.gameCreep.name, result);
+  }
+
+  build(target) {
+    const result = this.gameCreep.build(target);
+    if (result === OK) {
+      return;
+    }
+
+    if (result === ERR_NOT_IN_RANGE) {
+      this.move(target);
+      return;
+    }
+
+    ErrorManager.logError("build", this.gameCreep.name, result);
+  }
+
+  move(target) {
+    const result = this.gameCreep.moveTo(target, {
+      visualizePathStyle: {
+        stroke: '#ffaa00'
+      }
+    });
+
+    if (result === OK) {
+      return;
+    }
+
+    ErrorManager.logError("move", this.gameCreep.name, result);
+  }
+
+  upgradeController(target) {
+    const result = this.gameCreep.upgradeController(target);
+    if (result === OK) {
+      return;
+    }
+
+    if (result === ERR_NOT_IN_RANGE) {
+      this.move(target);
+      return;
+    }
+
+    ErrorManager.logError("upgradeController", this.gameCreep.name, result);
   }
 }
 

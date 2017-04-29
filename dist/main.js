@@ -1,18 +1,19 @@
-// var BaseCreep = require('BaseCreep');
-let BaseSpawn = require('BaseSpawn');
-let Harvester = require('Harvester');
-let CreepManager = require('CreepManager');
-let Cleanup = require('Cleanup');
+// let Harvester = require('Harvester');
+// let SpawnStructure = require('structure/SpawnStructure');
+const CreepManager = require('CreepManager');
+const StructureManager = require('StructureManager');
 
 module.exports.loop = function() {
-  console.log('loop')
-  Cleanup.cleanup();
-  let baseSpawn = new BaseSpawn(Game.spawns['Spawn1']);
+  // let spawnStructure = new SpawnStructure(Game.spawns.Spawn1);
 
-  let creepManager = new CreepManager();
+  const structureManager = new StructureManager();
+  const creepManager = new CreepManager();
+
+  structureManager.run(creepManager);
   creepManager.run();
 
-  if (creepManager.getNumOf(Harvester.ROLE) < 2) {
-    baseSpawn.createCreep(Harvester.BODY, Harvester.ROLE, Harvester.COST);
-  }
+  // creepManager.init();
+  // creepManager.createCreep(spawnStructure);
+  structureManager.status();
+  creepManager.status();
 };
